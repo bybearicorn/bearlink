@@ -1,0 +1,12 @@
+{
+  "name": "burn-link",
+  "private": true,
+  "workspaces": [
+    "burn-link-backend",
+    "burn-link-frontend",
+    "burn-link-shared"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}

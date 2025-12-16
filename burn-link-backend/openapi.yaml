@@ -1,0 +1,1842 @@
+openapi: 3.0.0
+paths:
+  /api/login:
+    post:
+      description: Authenticate user (starts logon session by issuing JWT cookie).
+      operationId: AuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+      summary: ''
+  /api/logout:
+    post:
+      description: Ends logon session by clearing JWT cookie.
+      operationId: AuthController_logout
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/burn-link:
+    post:
+      description: Create new burn link
+      operationId: BurnLinkController_createBurnLink
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBurnLinkRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBurnLinkResponse'
+      summary: ''
+  /api/burn-link/{id}:
+    get:
+      description: Get burn-link content
+      operationId: BurnLinkController_getBurnLink
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBurnLinkResponse'
+      summary: ''
+    delete:
+      description: Delete burn-link
+      operationId: BurnLinkController_delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+  /api/room:
+    post:
+      description: Create new room
+      operationId: RoomController_createRoom
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoomRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRoomResponse'
+      summary: ''
+    get:
+      description: List current user rooms
+      operationId: RoomController_listRoom
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+      summary: ''
+  /api/room/{id}:
+    get:
+      description: Get room detail
+      operationId: RoomController_getRoomDetail
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRoomDetailResponse'
+      summary: ''
+    post:
+      description: Update current user's FE data for room
+      operationId: RoomController_updateRoom
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoomRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+    delete:
+      description: Delete room
+      operationId: RoomController_deleteRoom
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/room/{id}/user/{userId}:
+    post:
+      description: Add access to room to another user
+      operationId: RoomController_addRoomUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRoomUserRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+    put:
+      description: Change access level of room's user
+      operationId: RoomController_changeDocumentUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeRoomUserAccessRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+    delete:
+      description: Delete user access to room
+      operationId: RoomController_deleteUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/room/{id}/user/me:
+    delete:
+      description: Delete current user access to room
+      operationId: RoomController_deleteCurrentUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/room/{roomId}/message:
+    post:
+      description: Create new message
+      operationId: MessageController_createMessage
+      parameters:
+        - name: roomId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessageRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMessageResponse'
+      summary: ''
+    get:
+      description: Get room messages
+      operationId: MessageController_getMessages
+      parameters:
+        - name: roomId
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+      summary: ''
+  /api/files:
+    get:
+      description: TUS handler
+      operationId: FileController_tusFiles_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    post:
+      description: TUS handler
+      operationId: FileController_tusFiles_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    put:
+      description: TUS handler
+      operationId: FileController_tusFiles_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    delete:
+      description: TUS handler
+      operationId: FileController_tusFiles_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    patch:
+      description: TUS handler
+      operationId: FileController_tusFiles_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    options:
+      description: TUS handler
+      operationId: FileController_tusFiles_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    head:
+      description: TUS handler
+      operationId: FileController_tusFiles_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    search:
+      description: TUS handler
+      operationId: FileController_tusFiles_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: ''
+  /api/files/{id}:
+    get:
+      description: TUS handler
+      operationId: FileController_tusFile_get
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    post:
+      description: TUS handler
+      operationId: FileController_tusFile_post
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    put:
+      description: TUS handler
+      operationId: FileController_tusFile_put
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    delete:
+      description: TUS handler
+      operationId: FileController_tusFile_delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    patch:
+      description: TUS handler
+      operationId: FileController_tusFile_patch
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    options:
+      description: TUS handler
+      operationId: FileController_tusFile_options
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    head:
+      description: TUS handler
+      operationId: FileController_tusFile_head
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+    search:
+      description: TUS handler
+      operationId: FileController_tusFile_search
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+  /api/bucket:
+    post:
+      description: Create new 2FA
+      operationId: BucketController_createBucket
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBucketRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBucketResponse'
+      summary: ''
+    get:
+      description: List current user buckets
+      operationId: BucketController_listBuckets
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BucketListItem'
+      summary: ''
+  /api/bucket/{id}:
+    get:
+      description: Get bucket detail
+      operationId: BucketController_getBucketDetail
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBucketDetailResponse'
+      summary: ''
+    post:
+      description: Update current user's FE data for bucket
+      operationId: BucketController_updateFeData
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBucketRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/bucket/{id}/add-user/{userId}:
+    post:
+      description: Add access to bucket to another user
+      operationId: BucketController_addBucketUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddBucketUserRequest'
+      responses:
+        '201':
+          description: ''
+      summary: ''
+    put:
+      description: Change access level of bucket's user
+      operationId: BucketController_changeBucketUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeBucketUserAccessRequest'
+      responses:
+        '200':
+          description: ''
+      summary: ''
+  /api/bucket/{id}/user/me:
+    delete:
+      description: Delete current user access to bucket
+      operationId: BucketController_deleteCurrentUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/bucket/{id}/user/{userId}:
+    delete:
+      description: Delete user access to bucket
+      operationId: BucketController_deleteUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/bucket/{bucketId}/document/{documentId}:
+    get:
+      description: Get document detail
+      operationId: BucketController_getDocumentDetail
+      parameters:
+        - name: bucketId
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: documentId
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDocumentDetailResponse'
+      summary: ''
+  /api/two-factor:
+    post:
+      description: Create new 2FA
+      operationId: TwoFactorController_createTwoFactor
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTwoFactorRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTwoFactorResponse'
+      summary: ''
+    get:
+      description: List current user 2FAs
+      operationId: TwoFactorController_listTwoFactor
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TwoFactorListItem'
+      summary: ''
+  /api/two-factor/{id}:
+    get:
+      description: Get 2FA detail
+      operationId: TwoFactorController_getTwoFactorDetail
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTwoFactorDetailResponse'
+      summary: ''
+    post:
+      description: Update current user's FE data for 2FA
+      operationId: TwoFactorController_updateFeData
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFeDataRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+    delete:
+      description: Delete 2FA
+      operationId: TwoFactorController_deleteTwoFactor
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/two-factor/{id}/secret:
+    get:
+      description: Get 2FA detail
+      operationId: TwoFactorController_getTwoFactorSecret
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTwoFactorSecretResponse'
+      summary: ''
+  /api/two-factor/{id}/user/{userId}:
+    post:
+      description: Add access to 2FA to another user
+      operationId: TwoFactorController_addTwoFactorUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTwoFactorUserRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+    put:
+      description: Change access level of 2fa's user
+      operationId: TwoFactorController_changeDocumentUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeTwoFactorUserAccessRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+    delete:
+      description: Delete user access to 2FA
+      operationId: TwoFactorController_deleteUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/two-factor/{id}/user/me:
+    delete:
+      description: Delete current user access to 2FA
+      operationId: TwoFactorController_deleteCurrentUserAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/user/me:
+    get:
+      description: Get information about current user
+      operationId: UserController_getCurrentUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCurrentUserResponse'
+      summary: ''
+    post:
+      description: Get information about current user
+      operationId: UserController_updateCurrentUser
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCurrentUserRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/user:
+    post:
+      description: Create new user (invitee).
+      operationId: UserController_createUser
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+      summary: ''
+    get:
+      description: Search users.
+      operationId: UserController_searchUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchUsersItem'
+      summary: ''
+  /api/user/activate:
+    post:
+      description: Activate user (change invitee to standard user).
+      operationId: UserController_activateUser
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateUserRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivateUserResponse'
+      summary: ''
+  /api/user/all:
+    get:
+      description: List all users.
+      operationId: UserController_listUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListUsersItem'
+      summary: ''
+  /api/user/restore:
+    post:
+      description: >-
+        Restore user - POST RSA key pair restored from mnemonic and new passowrd
+        (checksum must match).
+      operationId: UserController_restoreUser
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestoreUserRequest'
+      responses:
+        '204':
+          description: ''
+      summary: ''
+  /api/user/{id}:
+    get:
+      description: Get user detail
+      operationId: UserController_getUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+      summary: ''
+  /api/user/{id}/photo:
+    get:
+      description: Get user's photo
+      operationId: UserController_getUserPhoto
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: ''
+  /api/setup:
+    post:
+      description: Application initial setup. Create first (admin) user.
+      operationId: SetupController_createSetupUser
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdminUserRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAdminUserResponse'
+      summary: ''
+info:
+  title: HUB API
+  description: ''
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    cookie:
+      type: apiKey
+      in: cookie
+      name: jwt
+      description: JWT cookie
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+    LoginResponse:
+      type: object
+      properties:
+        jwtHash:
+          type: string
+      required:
+        - jwtHash
+    CreateBurnLinkRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        expires:
+          format: date-time
+          type: string
+      required:
+        - message
+    CreateBurnLinkResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id
+    GetBurnLinkResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+    CreateChatUser:
+      type: object
+      properties:
+        userId:
+          type: number
+        encKey:
+          type: string
+      required:
+        - userId
+        - encKey
+    CreateRoomRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        messageExpiration:
+          type: number
+          nullable: true
+        isPublic:
+          type: boolean
+        encKey:
+          type: string
+        otherUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateChatUser'
+      required:
+        - name
+        - encKey
+        - otherUsers
+    CreateRoomResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id
+    RoomUser:
+      type: object
+      properties:
+        userId:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        created:
+          format: date-time
+          type: string
+        accessType:
+          type: string
+        email:
+          type: string
+        hasPhoto:
+          type: boolean
+      required:
+        - userId
+        - firstName
+        - lastName
+        - hasPhoto
+    Room:
+      type: object
+      properties:
+        id:
+          type: number
+        encKey:
+          type: string
+        name:
+          type: string
+        created:
+          format: date-time
+          type: string
+        isEditor:
+          type: boolean
+        isOwner:
+          type: boolean
+        feData:
+          type: object
+        messageExpiration:
+          type: number
+          nullable: true
+        isPublic:
+          type: boolean
+          nullable: true
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomUser'
+      required:
+        - id
+        - encKey
+        - name
+        - created
+        - isEditor
+        - isOwner
+        - feData
+        - users
+    GetRoomDetailResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        encKey:
+          type: string
+        name:
+          type: string
+        created:
+          format: date-time
+          type: string
+        isEditor:
+          type: boolean
+        isOwner:
+          type: boolean
+        feData:
+          type: object
+        messageExpiration:
+          type: number
+          nullable: true
+        isPublic:
+          type: boolean
+          nullable: true
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomUser'
+      required:
+        - id
+        - encKey
+        - name
+        - created
+        - isEditor
+        - isOwner
+        - feData
+        - users
+    UpdateRoomRequest:
+      type: object
+      properties:
+        feData:
+          type: object
+        name:
+          type: string
+        messageExpiration:
+          type: number
+          nullable: true
+      required:
+        - feData
+        - name
+    AccessType:
+      type: string
+      enum:
+        - OWNER
+        - EDITOR
+        - READER
+    AddRoomUserRequest:
+      type: object
+      properties:
+        accessType:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/AccessType'
+        encKey:
+          type: string
+      required:
+        - encKey
+    ChangeRoomUserAccessRequest:
+      type: object
+      properties:
+        accessType:
+          allOf:
+            - $ref: '#/components/schemas/AccessType'
+      required:
+        - accessType
+    CreateMessageRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        replyToMessageId:
+          type: number
+          nullable: true
+        fileId:
+          type: number
+          nullable: true
+      required:
+        - message
+    CreateMessageResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id
+    Message:
+      type: object
+      properties:
+        id:
+          type: number
+        userId:
+          type: number
+        message:
+          type: string
+          nullable: true
+        fileId:
+          type: number
+          nullable: true
+        created:
+          format: date-time
+          type: string
+        edited:
+          format: date-time
+          type: string
+          nullable: true
+        replyToMessage:
+          $ref: '#/components/schemas/Message'
+      required:
+        - id
+        - userId
+        - message
+        - created
+    CreateBucketRequest:
+      type: object
+      properties:
+        treeStructure:
+          type: string
+        name:
+          type: string
+        encKey:
+          type: string
+      required:
+        - treeStructure
+        - name
+        - encKey
+    CreateBucketResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id
+    BucketListItem:
+      type: object
+      properties:
+        name:
+          type: string
+        treeStructure:
+          type: string
+        encKey:
+          type: string
+        created:
+          format: date-time
+          type: string
+        id:
+          type: number
+        feData:
+          type: object
+        isEditor:
+          type: boolean
+        isOwner:
+          type: boolean
+      required:
+        - name
+        - treeStructure
+        - encKey
+        - created
+        - id
+        - feData
+        - isEditor
+        - isOwner
+    BucketUser:
+      type: object
+      properties:
+        accessType:
+          type: string
+        userId:
+          type: number
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        hasPhoto:
+          type: boolean
+      required:
+        - accessType
+        - userId
+        - email
+        - firstName
+        - lastName
+        - hasPhoto
+    GetBucketDetailResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        treeStructure:
+          type: string
+        encKey:
+          type: string
+        created:
+          format: date-time
+          type: string
+        id:
+          type: number
+        feData:
+          type: object
+        isEditor:
+          type: boolean
+        isOwner:
+          type: boolean
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/BucketUser'
+      required:
+        - name
+        - treeStructure
+        - encKey
+        - created
+        - id
+        - feData
+        - isEditor
+        - isOwner
+        - users
+    UpdateBucketRequest:
+      type: object
+      properties:
+        feData:
+          type: object
+        name:
+          type: string
+        treeStructure:
+          type: string
+    AddBucketUserRequest:
+      type: object
+      properties:
+        accessType:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/AccessType'
+        encKey:
+          type: string
+      required:
+        - encKey
+    ChangeBucketUserAccessRequest:
+      type: object
+      properties:
+        accessType:
+          allOf:
+            - $ref: '#/components/schemas/AccessType'
+      required:
+        - accessType
+    GetDocumentDetailResponse:
+      type: object
+      properties:
+        fileName:
+          type: string
+        mimeType:
+          type: string
+        size:
+          type: number
+        decryptedSize:
+          type: number
+        created:
+          format: date-time
+          type: string
+        id:
+          type: number
+      required:
+        - fileName
+        - mimeType
+        - size
+        - decryptedSize
+        - created
+        - id
+    CreateTwoFactorRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - totp
+        label:
+          type: string
+        secret:
+          type: string
+        issuer:
+          type: string
+          nullable: true
+        algorithm:
+          type: string
+          nullable: true
+          enum:
+            - SHA1
+            - SHA256
+            - SHA384
+            - SHA512
+            - SHA-1
+            - SHA-256
+            - SHA-384
+            - SHA-512
+        digits:
+          type: number
+          nullable: true
+        period:
+          type: number
+          nullable: true
+        encKey:
+          type: string
+      required:
+        - type
+        - label
+        - secret
+        - encKey
+    CreateTwoFactorResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id
+    TwoFactorListItem:
+      type: object
+      properties:
+        epoch:
+          type: number
+        encKey:
+          type: string
+        type:
+          type: string
+        label:
+          type: string
+        issuer:
+          type: string
+        algorithm:
+          type: string
+        digits:
+          type: number
+        period:
+          type: number
+        id:
+          type: number
+        isEditor:
+          type: boolean
+        isOwner:
+          type: boolean
+        feData:
+          type: object
+      required:
+        - epoch
+        - encKey
+        - type
+        - label
+        - issuer
+        - algorithm
+        - digits
+        - period
+        - id
+        - isEditor
+        - isOwner
+        - feData
+    TwoFactorUser:
+      type: object
+      properties:
+        accessType:
+          type: string
+        userId:
+          type: number
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        hasPhoto:
+          type: boolean
+      required:
+        - accessType
+        - userId
+        - email
+        - firstName
+        - lastName
+        - hasPhoto
+    Created:
+      type: object
+      properties: {}
+    Updated:
+      type: object
+      properties: {}
+    GetTwoFactorDetailResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/TwoFactorUser'
+        created:
+          $ref: '#/components/schemas/Created'
+        updated:
+          $ref: '#/components/schemas/Updated'
+        encKey:
+          type: string
+        type:
+          type: string
+        label:
+          type: string
+        issuer:
+          type: string
+        algorithm:
+          type: string
+        digits:
+          type: number
+        period:
+          type: number
+        id:
+          type: number
+        isEditor:
+          type: boolean
+        isOwner:
+          type: boolean
+        feData:
+          type: object
+      required:
+        - users
+        - encKey
+        - type
+        - label
+        - issuer
+        - algorithm
+        - digits
+        - period
+        - id
+        - isEditor
+        - isOwner
+        - feData
+    GetTwoFactorSecretResponse:
+      type: object
+      properties:
+        encKey:
+          type: string
+        secret:
+          type: string
+      required:
+        - encKey
+        - secret
+    UpdateFeDataRequest:
+      type: object
+      properties:
+        feData:
+          type: object
+      required:
+        - feData
+    AddTwoFactorUserRequest:
+      type: object
+      properties:
+        accessType:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/AccessType'
+        encKey:
+          type: string
+      required:
+        - encKey
+    ChangeTwoFactorUserAccessRequest:
+      type: object
+      properties:
+        accessType:
+          allOf:
+            - $ref: '#/components/schemas/AccessType'
+      required:
+        - accessType
+    GetCurrentUserResponse:
+      type: object
+      properties:
+        privateKey:
+          type: string
+          nullable: true
+        publicKey:
+          type: string
+          nullable: true
+        roles:
+          type: array
+          items:
+            type: string
+        tokens:
+          type: array
+          items:
+            type: string
+        jwtHash:
+          type: string
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        hasPhoto:
+          type: boolean
+        created:
+          format: date-time
+          type: string
+      required:
+        - roles
+        - tokens
+        - jwtHash
+        - id
+        - firstName
+        - lastName
+        - email
+        - hasPhoto
+        - created
+    UpdateCurrentUserRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+      required:
+        - firstName
+        - lastName
+    CreateUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - firstName
+        - lastName
+        - password
+    CreateUserResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id
+    ActivateUserRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+        privateKey:
+          type: string
+        publicKey:
+          type: string
+        privateKeyChecksum:
+          type: string
+      required:
+        - firstName
+        - lastName
+        - password
+        - privateKey
+        - publicKey
+        - privateKeyChecksum
+    ActivateUserResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id
+    SearchUsersItem:
+      type: object
+      properties:
+        publicKey:
+          type: string
+          nullable: true
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        hasPhoto:
+          type: boolean
+        created:
+          format: date-time
+          type: string
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - hasPhoto
+        - created
+    ListUsersItem:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            type: string
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        hasPhoto:
+          type: boolean
+        created:
+          format: date-time
+          type: string
+      required:
+        - roles
+        - id
+        - firstName
+        - lastName
+        - email
+        - hasPhoto
+        - created
+    RestoreUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        privateKey:
+          type: string
+        publicKey:
+          type: string
+        privateKeyChecksum:
+          type: string
+      required:
+        - email
+        - password
+        - privateKey
+        - publicKey
+        - privateKeyChecksum
+    GetUserResponse:
+      type: object
+      properties:
+        publicKey:
+          type: string
+          nullable: true
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        hasPhoto:
+          type: boolean
+        created:
+          format: date-time
+          type: string
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - hasPhoto
+        - created
+    CreateAdminUserRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+        privateKey:
+          type: string
+        publicKey:
+          type: string
+        privateKeyChecksum:
+          type: string
+        email:
+          type: string
+          format: email
+      required:
+        - firstName
+        - lastName
+        - password
+        - privateKey
+        - publicKey
+        - privateKeyChecksum
+        - email
+    CreateAdminUserResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+        - id

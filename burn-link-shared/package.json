@@ -1,0 +1,10 @@
+{
+  "name": "@burn-link/shared",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "class-transformer": "0.5.1",
+    "class-validator": "0.14.2",
+    "@nestjs/common": "11.1.6",
+    "@nestjs/swagger": "11.2.1"
+  }
+}

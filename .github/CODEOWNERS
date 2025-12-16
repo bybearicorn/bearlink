@@ -1,0 +1,13 @@
+**/eslint.config.* @samuel.ondrek @ondrek
+**/.eslintrc.* @samuel.ondrek @ondrek
+**/.eslintignore @samuel.ondrek @ondrek
+
+**/tsconfig*.json @samuel.ondrek @ondrek
+
+**/.prettierrc* @samuel.ondrek @ondrek
+**/prettier.config.* @samuel.ondrek @ondrek
+**/.prettierignore @samuel.ondrek @ondrek
+
+**/CODEOWNERS @samuel.ondrek @ondrek
+
+#test comment

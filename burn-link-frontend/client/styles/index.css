@@ -1,0 +1,81 @@
+@import "tailwindcss";
+@import "./font.css";
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@theme {
+  --font-epilogue: Epilogue, sans-serif;
+  --font-lucida:
+    "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Verdana", "Tahoma", "sans-serif";
+  --font-neue-machina: NeueMachina, sans-serif;
+
+  --color-primary: #4e653a;
+  --color-primary-light: #67854d;
+  --color-primary-dark: #354527;
+  --color-secondary: #f7f7f3;
+  --color-text-color: #8a8a8a;
+  --color-text-secondary: #4d4d4d;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  body {
+    @apply bg-secondary font-optimization font-lucida text-[14px]/5;
+  }
+
+  h1 {
+    @apply font-epilogue text-[36px] leading-11 font-bold md:text-[44px] md:leading-[52px];
+  }
+
+  h2 {
+    @apply font-epilogue text-[26px] leading-8 font-bold md:text-[34px] md:leading-[45px];
+  }
+
+  h3 {
+    @apply font-epilogue text-[20px] leading-6 font-bold -tracking-wide md:text-[24px] md:leading-8;
+  }
+
+  h4 {
+    @apply font-epilogue text-[16px] leading-5 font-bold -tracking-wide md:text-[18px] md:leading-[24px];
+  }
+
+  a {
+    @apply font-lucida cursor-pointer text-center leading-6 font-normal tracking-[-0.32px] duration-300;
+  }
+
+  p {
+    @apply font-lucida;
+  }
+
+  input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .form-input {
+    @apply rounded-md border px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none;
+  }
+
+  .animated-title {
+    @apply font-neue-machina text-4xl font-bold;
+  }
+}
+
+@utility font-optimization {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}

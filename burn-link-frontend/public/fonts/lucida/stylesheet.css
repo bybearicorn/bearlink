@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Lucida Sans';
+    src: url('LucidaSans.eot');
+    src: url('LucidaSans.eot?#iefix') format('embedded-opentype'),
+        url('LucidaSans.woff2') format('woff2'),
+        url('LucidaSans.woff') format('woff'),
+        url('LucidaSans.ttf') format('truetype'),
+        url('LucidaSans.svg#LucidaSans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lucida Sans';
+    src: url('LucidaSans-Demi.eot');
+    src: url('LucidaSans-Demi.eot?#iefix') format('embedded-opentype'),
+        url('LucidaSans-Demi.woff2') format('woff2'),
+        url('LucidaSans-Demi.woff') format('woff'),
+        url('LucidaSans-Demi.ttf') format('truetype'),
+        url('LucidaSans-Demi.svg#LucidaSans-Demi') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lucida Sans';
+    src: url('LucidaSans-DemiItalic.eot');
+    src: url('LucidaSans-DemiItalic.eot?#iefix') format('embedded-opentype'),
+        url('LucidaSans-DemiItalic.woff2') format('woff2'),
+        url('LucidaSans-DemiItalic.woff') format('woff'),
+        url('LucidaSans-DemiItalic.ttf') format('truetype'),
+        url('LucidaSans-DemiItalic.svg#LucidaSans-DemiItalic') format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lucida Sans';
+    src: url('LucidaSans-Italic.eot');
+    src: url('LucidaSans-Italic.eot?#iefix') format('embedded-opentype'),
+        url('LucidaSans-Italic.woff2') format('woff2'),
+        url('LucidaSans-Italic.woff') format('woff'),
+        url('LucidaSans-Italic.ttf') format('truetype'),
+        url('LucidaSans-Italic.svg#LucidaSans-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
