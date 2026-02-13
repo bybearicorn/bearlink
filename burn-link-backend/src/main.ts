@@ -26,6 +26,9 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalInterceptors(new LoggingInterceptor());
 
+  // Enable graceful shutdown
+  app.enableShutdownHooks();
+
   await app.listen(process.env.PORT ?? 6003, "0.0.0.0", async () => {
     logger.log(`burn-link is running on ${await app.getUrl()}`);
   });
